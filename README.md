@@ -34,6 +34,7 @@ npm install
 Proje, docker-compose.yml ile birlikte gelir. MongoDB, Backend ve MQTT broker container olarak ayağa kalkar.
 
 docker compose up -d --build
+docker containerlarınızda 5000 portunu kullanan varsa lütfen dockerfile da portu güncelleyin.
 Servisler çalıştıktan sonra:
 🔹 Swagger UI: http://localhost:5000/api-docs
 
