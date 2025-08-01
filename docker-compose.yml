@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  backend:
+    container_name: order-backend
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
+    depends_on:
+      - mongo
+
+  mongo:
+    container_name: mongodb
+    image: mongo:6
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
