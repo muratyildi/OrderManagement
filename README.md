@@ -1,13 +1,13 @@
 Bu proje, Express.js, TypeScript, MongoDB, Socket.IO ve MQTT kullanılarak geliştirilmiş basit bir sipariş yönetim sistemidir.
 
-🚀 Özellikler
-🔁 RESTful API: Sipariş oluşturma, listeleme, güncelleme ve silme
+Özellikler
+RESTful API: Sipariş oluşturma, listeleme, güncelleme ve silme
 
-📡 Gerçek zamanlı bildirimler: Socket.IO ile WebSocket üzerinden
+Gerçek zamanlı bildirimler: Socket.IO ile WebSocket üzerinden
 
-📬 MQTT: Sipariş durumu güncellemeleri
+MQTT: Sipariş durumu güncellemeleri
 
-📘 Swagger: Otomatik API dokümantasyonu
+Swagger: Otomatik API dokümantasyonu
 
 🛠️ Gereksinimler
 Aşağıdaki yazılımlar sisteminizde kurulu olmalıdır:
@@ -34,7 +34,9 @@ npm install
 Proje, docker-compose.yml ile birlikte gelir. MongoDB, Backend ve MQTT broker container olarak ayağa kalkar.
 
 docker compose up -d --build
-docker containerlarınızda 5000 portunu kullanan varsa lütfen dockerfile da portu güncelleyin.
+not: eğer ports are not available gibi bir hata alırsanız,docker containerlarınızda 5000 portunu kullanan bir servis olabilir.
+Lütfen docker compose yml dosyasında portu güncelleyin(soldaki portu değiştirmeniz yeterli).
+
 Servisler çalıştıktan sonra:
 🔹 Swagger UI: http://localhost:5000/api-docs
 
@@ -43,7 +45,7 @@ Servisler çalıştıktan sonra:
 🔹 MQTT Broker: mqtt://localhost:1883
 
 📡 MQTT & Socket.IO Kullanımı
-Bu projede bir frontend arayüzü bulunmamaktadır.
+Not: Bu projede bir frontend arayüzü bulunmamaktadır.
 
 Aşağıdaki yollarla MQTT ve Socket.IO özelliklerini test edebilirsiniz:
 
