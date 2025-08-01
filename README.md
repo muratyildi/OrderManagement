@@ -1,97 +1,105 @@
+Bu proje, Express.js, TypeScript, MongoDB, Socket.IO ve MQTT kullanılarak geliştirilmiş basit bir sipariş yönetim sistemidir.
 
-Order Management Backend
-Bu proje, Express.js, TypeScript, MongoDB, Socket.IO, ve MQTT kullanılarak geliştirilmiş basit bir sipariş yönetim sistemidir.
+🚀 Özellikler
+🔁 RESTful API: Sipariş oluşturma, listeleme, güncelleme ve silme
 
-🔧 Özellikler
-REST API: Sipariş oluşturma, listeleme, güncelleme ve silme.
+📡 Gerçek zamanlı bildirimler: Socket.IO ile WebSocket üzerinden
 
-Gerçek zamanlı bildirim: Socket.IO ile WebSocket üzerinden.
+📬 MQTT: Sipariş durumu güncellemeleri
 
-MQTT ile durum güncellemeleri.
+📘 Swagger: Otomatik API dokümantasyonu
 
-Swagger ile API dokümantasyonu.
+🛠️ Gereksinimler
+Aşağıdaki yazılımlar sisteminizde kurulu olmalıdır:
 
-🚀 Kurulum ve Çalıştırma
-1. Gereksinimler
-Aşağıdaki yazılımların sisteminizde kurulu olması gerekir:
+Docker
 
-Docker ve Docker Compose
+Docker Compose
 
 Git (opsiyonel)
 
-2. Projeyi Klonlayın
+Node.js (sadece yerel çalıştırma için)
+
+📥 Kurulum
+1. Projeyi Klonlayın
+bash
 git clone https://github.com/kullaniciAdi/OrderManagement.git
 cd OrderManagement
-3. Gerekli Paketlerin Kurulumu
-İlk kez çalıştırmadan önce aşağıdaki komutla bağımlılıkları kurun:
-
+2. Bağımlılıkları Yükleyin (Docker kullanmıyorsanız)
+bash
 npm install
-⚠️ Bu komut package.json dosyasının bulunduğu klasörde çalıştırılmalıdır.
+⚠️ Bu komut package.json dosyasının bulunduğu dizinde çalıştırılmalıdır.
 
-🐳 Docker ile Projeyi Başlatma
-Proje, MongoDB, Backend ve MQTT broker içeren bir docker-compose.yml ile birlikte gelir.
+🐳 Docker ile Çalıştırma
+Proje, docker-compose.yml ile birlikte gelir. MongoDB, Backend ve MQTT broker container olarak ayağa kalkar.
 
-docker-compose up --build
-Tüm servisler ayağa kalktığında:
+docker compose up -d --build
+Servisler çalıştıktan sonra:
+🔹 Swagger UI: http://localhost:5000/api-docs
 
-Swagger UI: http://localhost:5000/api-docs
+🔹 Backend API: http://localhost:5000
 
-MQTT Broker: mqtt://localhost:1883
+🔹 MQTT Broker: mqtt://localhost:1883
 
-Backend API: http://localhost:5000
+📡 MQTT & Socket.IO Kullanımı
+Bu projede bir frontend arayüzü bulunmamaktadır.
 
-📡 MQTT & Socket.IO Hakkında
-Bu projede herhangi bir frontend arayüzü yoktur.
+Aşağıdaki yollarla MQTT ve Socket.IO özelliklerini test edebilirsiniz:
 
-MQTT ve Socket.IO özelliklerini test etmek isteyen geliştiriciler için örnek terminal betikleri ya da Postman/Insomnia kullanılabilir.
+✅ MQTT Durum Mesajı Yayınlama
+bash
 
-MQTT Mesajı Yayınlama Örneği:
 mosquitto_pub -h localhost -p 1883 -t orders/<orderId>/status -m "delivered"
-Socket.IO Dinleme Örneği:
+✅ Socket.IO Dinleme
+bash
 npx ts-node src/sockets/socket-client.ts
-ile dinleyebilirsiniz
+✅ MQTT Subscriber Script’i
+bash
 
-MQTT için;npx ts-node src/mqtt/mqtt-subscriber.ts
-📂 Dockerfile Konumu
-Dockerfile dosyanı
+npx ts-node src/mqtt/mqtt-subscriber.ts
+Yukarıdaki komutlar için TypeScript desteği (ts-node) kurulu olmalıdır.
+
+⚙️ Docker Yapılandırması
+bash
+
 OrderManagement/
 ├── Dockerfile
 ├── docker-compose.yml
+├── .env
 ├── src/
 │   └── ...
-Eğer Dockerfile alt bir dizinde ise (örneğin backend/), docker-compose.yml içinde context ayarını buna göre değiştirmeniz gerekir.
+Eğer Dockerfile alt bir dizinde yer alıyorsa (backend/ gibi), docker-compose.yml içindeki build.context ayarını buna göre güncelleyin.
 
 🔐 Ortam Değişkenleri
-docker-compose.yml dosyasına gömülü ortam değişkenleri:
+Docker Compose kullanıyorsanız .env dosyasına gerek yoktur çünkü değişkenler gömülüdür:
 
+ini
 
 MONGO_URI=mongodb://mongo:27017/orderDB
 MQTT_BROKER_URL=mqtt://mosquitto:1883
-Eğer projeyi Docker olmadan çalıştıracaksanız, .env dosyası oluşturup bu değişkenleri ekleyin.
+Eğer Docker olmadan çalıştırıyorsanız, bir .env dosyası oluşturun ve aynı değişkenleri girin.
 
 📬 API Uç Noktaları
-POST /api/orders → Sipariş oluştur
+Yöntem	Endpoint	Açıklama
+POST	/api/orders	Yeni sipariş oluştur
+GET	/api/orders	Tüm siparişleri getir (filtrelenebilir)
+GET	/api/orders/:id	Siparişi ID’ye göre getir
+PUT	/api/orders/:id	Siparişi güncelle
+DELETE	/api/orders/:id	Siparişi sil
 
-GET /api/orders → Tüm siparişleri getir
+🔍 Detaylı test ve kullanım için: Swagger UI
 
-GET /api/orders/:id → ID’ye göre getir
+📚 Kullanılan Teknolojiler
+Express.js
 
-PUT /api/orders/:id → Güncelle
+MongoDB + Mongoose
 
-DELETE /api/orders/:id → Sil
+Socket.IO
 
-Swagger üzerinden detaylı test edebilirsiniz.
+MQTT.js
 
-📦 Kullanılan Başlıca Paketler
-express
+Swagger UI Express
 
-mongoose
+TypeScript
 
-socket.io
-
-mqtt
-
-swagger-ui-express
-
-typescript, ts-node-dev
-
+ts-node-dev
